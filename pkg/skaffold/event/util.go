@@ -73,6 +73,8 @@ func getBuilders(b latest.BuildConfig) []*proto.BuildMetadata_ImageBuilder {
 		switch {
 		case a.BazelArtifact != nil:
 			updateOrAddKey(m, proto.BuilderType_BAZEL)
+		case a.Buck2Artifact != nil:
+			updateOrAddKey(m, proto.BuilderType_BUCK2)
 		case a.BuildpackArtifact != nil:
 			updateOrAddKey(m, proto.BuilderType_BUILDPACKS)
 		case a.CustomArtifact != nil:

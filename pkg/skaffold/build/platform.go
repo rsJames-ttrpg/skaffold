@@ -32,7 +32,7 @@ import (
 
 func SupportsMultiPlatformBuild(a latest.Artifact) bool {
 	switch {
-	case a.DockerArtifact != nil || a.BazelArtifact != nil || a.BuildpackArtifact != nil:
+	case a.DockerArtifact != nil || a.BazelArtifact != nil || a.Buck2Artifact != nil || a.BuildpackArtifact != nil:
 		return false
 	case a.JibArtifact != nil || a.CustomArtifact != nil || a.KoArtifact != nil:
 		return true

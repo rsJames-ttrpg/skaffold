@@ -90,6 +90,8 @@ func getArtifacts(b latest.BuildConfig) []*proto.BuildMetadata_Artifact {
 		switch {
 		case a.BazelArtifact != nil:
 			artifact.Type = proto.BuilderType_BAZEL
+		case a.Buck2Artifact != nil:
+			artifact.Type = proto.BuilderType_BUCK2
 		case a.BuildpackArtifact != nil:
 			artifact.Type = proto.BuilderType_BUILDPACKS
 		case a.CustomArtifact != nil:

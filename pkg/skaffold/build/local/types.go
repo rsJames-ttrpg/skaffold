@@ -23,6 +23,7 @@ import (
 
 	"github.com/GoogleContainerTools/skaffold/v2/pkg/skaffold/build"
 	"github.com/GoogleContainerTools/skaffold/v2/pkg/skaffold/build/bazel"
+	"github.com/GoogleContainerTools/skaffold/v2/pkg/skaffold/build/buck2"
 	"github.com/GoogleContainerTools/skaffold/v2/pkg/skaffold/build/buildpacks"
 	"github.com/GoogleContainerTools/skaffold/v2/pkg/skaffold/build/custom"
 	dockerbuilder "github.com/GoogleContainerTools/skaffold/v2/pkg/skaffold/build/docker"
@@ -137,6 +138,9 @@ func newPerArtifactBuilder(b *Builder, a *latest.Artifact) (artifactBuilder, err
 
 	case a.BazelArtifact != nil:
 		return bazel.NewArtifactBuilder(b.localDocker, b.cfg, b.pushImages), nil
+
+	case a.Buck2Artifact != nil:
+		return buck2.NewArtifactBuilder(b.localDocker, b.cfg, b.pushImages), nil
 
 	case a.JibArtifact != nil:
 		return jib.NewArtifactBuilder(b.localDocker, b.cfg, b.pushImages, b.skipTests, b.artifactStore), nil

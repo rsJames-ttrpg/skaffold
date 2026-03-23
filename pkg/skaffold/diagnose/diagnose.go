@@ -110,6 +110,8 @@ func typeOfArtifact(a *latest.Artifact) string {
 		return "Docker artifact"
 	case a.BazelArtifact != nil:
 		return "Bazel artifact"
+	case a.Buck2Artifact != nil:
+		return "Buck2 artifact"
 	case a.JibArtifact != nil:
 		return "Jib artifact"
 	case a.KanikoArtifact != nil:

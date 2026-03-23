@@ -1,0 +1,16 @@
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: hello
+build:
+  tagPolicy:
+    sha256: {}
+  artifacts:
+    - image: skaffold-buck2
+      buck2:
+        target: //:skaffold-example.tar
+deploy:
+  kubectl: {}
+manifests:
+  rawYaml:
+    - "deploy.yaml"

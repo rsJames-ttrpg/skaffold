@@ -28,6 +28,7 @@ const (
 	Docker    = "docker"
 	Kaniko    = "kaniko"
 	Bazel     = "bazel"
+	Buck2     = "buck2"
 	Jib       = "jib"
 	Custom    = "custom"
 	Buildpack = "buildpack"
@@ -44,6 +45,8 @@ func ArtifactType(a *latest.Artifact) string {
 		return Kaniko
 	case a.BazelArtifact != nil:
 		return Bazel
+	case a.Buck2Artifact != nil:
+		return Buck2
 	case a.JibArtifact != nil:
 		return Jib
 	case a.CustomArtifact != nil:

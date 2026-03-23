@@ -40,6 +40,8 @@ const (
 	BuilderType_DOCKER BuilderType = 6
 	// Ko Builder
 	BuilderType_KO BuilderType = 7
+	// Buck2 Builder
+	BuilderType_BUCK2 BuilderType = 8
 )
 
 // Enum value maps for BuilderType.
@@ -53,6 +55,7 @@ var (
 		5: "KANIKO",
 		6: "DOCKER",
 		7: "KO",
+		8: "BUCK2",
 	}
 	BuilderType_value = map[string]int32{
 		"UNKNOWN_BUILDER_TYPE": 0,
@@ -63,6 +66,7 @@ var (
 		"KANIKO":               5,
 		"DOCKER":               6,
 		"KO":                   7,
+		"BUCK2":                8,
 	}
 )
 

@@ -1276,6 +1276,10 @@ type ArtifactType struct {
 
 	// CustomArtifact *beta* builds images using a custom build script written by the user.
 	CustomArtifact *CustomArtifact `yaml:"custom,omitempty" yamltags:"oneOf=artifact"`
+
+	// Buck2Artifact *beta* requires buck2 CLI to be installed and the sources to
+	// contain [Buck2](https://buck2.build/) configuration files.
+	Buck2Artifact *Buck2Artifact `yaml:"buck2,omitempty" yamltags:"oneOf=artifact"`
 }
 
 // ArtifactDependency describes a specific build dependency for an artifact.
@@ -1649,6 +1653,31 @@ type BazelArtifact struct {
 	// PlatformMappings configure the --platforms flag for `bazel build`
 	// based on the configured skaffold target platform.
 	PlatformMappings []BazelPlatformMapping `yaml:"platforms,omitempty"`
+}
+
+// Buck2Artifact describes an artifact built with [Buck2](https://buck2.build/).
+type Buck2Artifact struct {
+	// BuildTarget is the `buck2 build` target to run.
+	// For example: `//:skaffold_example.tar`.
+	BuildTarget string `yaml:"target,omitempty" yamltags:"required"`
+
+	// BuildArgs are additional args to pass to `buck2 build`.
+	// For example: `["-flag", "--otherflag"]`.
+	BuildArgs []string `yaml:"args,omitempty"`
+
+	// PlatformMappings configure the --target-platforms flag for `buck2 build`
+	// based on the configured skaffold target platform.
+	PlatformMappings []Buck2PlatformMapping `yaml:"platforms,omitempty"`
+}
+
+// Buck2PlatformMapping relates a skaffold platform (like 'linux/amd64')
+// to a workspace-specific buck2 platform target (e.g. '//platforms:linux_amd64').
+type Buck2PlatformMapping struct {
+	// Platform is the skaffold platform.
+	Platform string `yaml:"platform" yamltags:"required"`
+
+	// Buck2PlatformTarget is the buck2 platform target to be passed to buck2's `--target-platforms` flag.
+	Buck2PlatformTarget string `yaml:"target" yamltags:"required"`
 }
 
 // KoArtifact builds images using [ko](https://github.com/google/ko).

@@ -89,6 +89,8 @@ func builderRank(builder InitBuilder) int {
 		return 3
 	case a.BazelArtifact != nil:
 		return 4
+	case a.Buck2Artifact != nil:
+		return 4
 	case a.BuildpackArtifact != nil:
 		return 5
 	}

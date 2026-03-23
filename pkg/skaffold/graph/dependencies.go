@@ -21,6 +21,7 @@ import (
 	"fmt"
 
 	"github.com/GoogleContainerTools/skaffold/v2/pkg/skaffold/build/bazel"
+	"github.com/GoogleContainerTools/skaffold/v2/pkg/skaffold/build/buck2"
 	"github.com/GoogleContainerTools/skaffold/v2/pkg/skaffold/build/buildpacks"
 	"github.com/GoogleContainerTools/skaffold/v2/pkg/skaffold/build/custom"
 	"github.com/GoogleContainerTools/skaffold/v2/pkg/skaffold/build/jib"
@@ -145,6 +146,9 @@ func sourceDependenciesForArtifact(ctx context.Context, a *latest.Artifact, cfg 
 
 	case a.BazelArtifact != nil:
 		paths, err = bazel.GetDependencies(ctx, a.Workspace, a.BazelArtifact)
+
+	case a.Buck2Artifact != nil:
+		paths, err = buck2.GetDependencies(ctx, a.Workspace, a.Buck2Artifact)
 
 	case a.JibArtifact != nil:
 		paths, err = jib.GetDependencies(ctx, a.Workspace, a.JibArtifact)

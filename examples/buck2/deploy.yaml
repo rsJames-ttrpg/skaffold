@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: buck2
+spec:
+  containers:
+    - name: buck2
+      image: skaffold-buck2
