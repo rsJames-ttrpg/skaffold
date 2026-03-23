@@ -1,27 +1,27 @@
-# Build a container image tar using docker build.
-# The output is a .tar file compatible with `docker load`.
-genrule(
-    name = "skaffold-example.tar",
-    srcs = [
-        "main.go",
-        "Dockerfile",
-    ],
-    out = "skaffold-example.tar",
-    cmd = " && ".join([
-        "cp $(location :main.go) $TMP/main.go",
-        "cp $(location :Dockerfile) $TMP/Dockerfile",
-        "docker build -t buck2-example:latest $TMP",
-        "docker save -o $OUT buck2-example:latest",
-    ]),
-    visibility = ["PUBLIC"],
-)
-
 export_file(
     name = "main.go",
     src = "main.go",
 )
 
 export_file(
-    name = "Dockerfile",
-    src = "Dockerfile",
+    name = "build_image_tar.sh",
+    src = "build_image_tar.sh",
+)
+
+genrule(
+    name = "app",
+    srcs = [":main.go"],
+    out = "app",
+    cmd = "CGO_ENABLED=0 go build -o $OUT $(location :main.go)",
+)
+
+genrule(
+    name = "skaffold-example.tar",
+    srcs = [
+        ":app",
+        ":build_image_tar.sh",
+    ],
+    out = "skaffold-example.tar",
+    cmd = "bash $(location :build_image_tar.sh) $(location :app) $OUT",
+    visibility = ["PUBLIC"],
 )
